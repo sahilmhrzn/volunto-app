@@ -3,7 +3,6 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen'
-import SignUp from './screens/SignUp'
 import CreateEvent from './screens/CreateEvent'
 import MyEvents from './screens/MyEvents'
 import Profile from './screens/Profile'
@@ -12,6 +11,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //import { createDrawerNavigator } from '@react-navigation/drawer';
 //import { TailwindProvider } from 'tailwindcss-react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import {addEvent} from './screens/HomeScreen'
+import Form from './screens/Form';
 
 
 const Tab = createBottomTabNavigator();
@@ -63,8 +64,10 @@ export function BottomTab() {
     })}>
 
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="LeaderBoard" component={SignUp} />
-      <Tab.Screen name="Create" component={CreateEvent} />
+      <Tab.Screen name="LeaderBoard" component={Form} />
+      <Tab.Screen name="Create"
+       children={()=><CreateEvent addEvent={addEvent} /> }
+       />
       <Tab.Screen name="My Events" component={MyEvents} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

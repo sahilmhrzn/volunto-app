@@ -1,16 +1,11 @@
 import { View, Text, TextInput, Button, Dimensions } from 'react-native'
 import React from 'react'
 
-const SignUp = () => {
+const Login = () => {
     return (
-        <View style={{ width: Dimensions.get('window').width, paddingHorizontal:20,}}>
-            <Text>Signup</Text>
+        <View style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height, paddingHorizontal: 20 }}>
+            <Text className='text-3xl mt-8 font-bold text-center'>Login</Text>
             <Text className='text-lg mt-5'>Create your Account</Text>
-            <View className='flex-row  items-center space-x-2 bg-white p-1 mb-2 shadow-sm'>
-                <TextInput
-                    placeholder='Full Name'
-                />
-            </View>
             <View className='flex-row  items-center space-x-2 bg-white p-1 mb-2 shadow-sm'>
                 <TextInput
                     placeholder='Email'
@@ -25,11 +20,11 @@ const SignUp = () => {
                 />
             </View>
             <View>
-                <Button title="Sign Up" color="green" />
+                <Button title="Login" color="green" />
             </View>
 
         </View>
     )
 }
 
-export default SignUp
+export default Login

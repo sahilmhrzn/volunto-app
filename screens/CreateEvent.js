@@ -33,7 +33,7 @@ const CreateEvent = ({ addEvent }) => {
       <Formik
         initialValues={{ eventName: '', organizerName: '', date: '', time: '', location: '', description: '' }}
         onSubmit={(values) => {
-          //addEvent(values)
+          addEvent(values)
           console.log(values);
         }}
       >

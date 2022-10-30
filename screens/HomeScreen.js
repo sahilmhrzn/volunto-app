@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, TextInput, Modal, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Modal, SafeAreaView, FlatList,Button } from 'react-native'
 import React, { useState } from 'react'
-//import BottomTab from './BottomTabs'
 import Events from './Events'
-//import { SparklesIcon, SearchIcon, AdjustmentsIcon } from "react-native-heroicons/solid";
+import DatePicker from 'react-native-date-ranges';
 import Categories from '../components/Categories'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchFilterModal from '../components/SearchFilterModal';
+import EventCard from '../components/EventCard';
 //import { BottomTab } from '../App';
 //import BottomTab from '../App';
 
@@ -17,19 +17,31 @@ export default function HomeScreen() {
     }
   ])
 
-  // const addEvent = (event) => {
-  //   event.key = Math.random().toString();
-  //   setEvents((currentEvents) => {
-  //     return [event, ...currentEvents];
-  //   })
-  // }
+  const addEvent = (event) => {
+    event.key = Math.random().toString();
+    setEvents((currentEvents) => {
+      return [event, ...currentEvents];
+    })
+  }
+  const handleConfirm =(value)=>{
+    console.log(value)
+  }
+  
+  const confirmButton = (onConfirm) => {
+    return (<Button
+        onPress={onConfirm}
+        title='confirm'
+        color='green'
+    />)
+  }
+
 
   return (
     <SafeAreaView>
       {/* Header Section */}
       <View className='flex-row items-center pb-2 '>
         <TouchableOpacity className="flex-1">
-          <Text className="text-black text-xl font-extrabold" >Voluntooo</Text>
+          <Text className="text-black text-xl font-extrabold" >Volunto</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Ionicons name="menu" size={30} />
@@ -41,29 +53,45 @@ export default function HomeScreen() {
       <View className='flex-row items-center pb-2 space-x-4 '>
         <View className='flex-row flex-1 items-center space-x-2 bg-white p-1 rounded-2xl shadow-lime-900'>
           {/* <SearchIcon color="grey" size={20} /> */}
-          <TextInput
-            placeholder='Search Events'
-          />
+          <TouchableOpacity>
+            <TextInput
+              placeholder='Search Events'
+            />
+          </TouchableOpacity>
         </View>
         {/* <AdjustmentsIcon color="green" /> */}
         <View><SearchFilterModal /></View>
 
       </View>
-      <Ionicons name='md-options'
-        onPress={() => setModalVisible(true)}
+      <DatePicker
+        style={{ width: 150, height: 40 }}
+        customStyles={{
+        placeholderText: { fontSize: 10, color:'green' }, // placeHolder style
+        headerStyle: {
+          backgroundColor:"green"
+        },			// title container style
+        headerMarkTitle: {
+          color:'white',
+        }, // title mark style 
+        //   headerDateTitle: {}, // title Date style
+        //   contentInput: {}, //content text container style
+         contentText: {
+          color:'green',
+          fontSize:10
+         }, //after selected text Style
+         }} // optional 
+        // centerAlign // optional text will align center or not
+        // allowFontScaling={false} // optional
+        placeholder={'Select your available date'}
+         markText={'Select your available date'}
+        //buttonText={'hello'}
+        mode={'range'}
+        customButton = {confirmButton}
+        selectedBgColor={'green'}
+        dateSplitter='to'
+        onConfirm={(value)=>handleConfirm(value)}
+        outFormat='MMM-DD'
       />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          //Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View><Text>Hello</Text></View>
-      </Modal>
       {/* --------------------------------------------------- */}
       {/* Categories */}
       <View>

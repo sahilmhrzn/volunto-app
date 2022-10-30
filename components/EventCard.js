@@ -8,7 +8,7 @@ export default function EventCard(props) {
         <View className='bg-white p-3 shadow mb-3 rounded-lg'>
             <View className='flex-row items-center'>
                 <Image
-                    source={require('../assests/profilepic.jpg')}
+                    source={require('../assets/profilepic.jpg')}
                     className='rounded-full h-11 w-11'
                 />
                 <View className='px-3 flex-1'>

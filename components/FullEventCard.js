@@ -1,13 +1,12 @@
-import { View, Text, Image, ScrollView, Button, Modal,Pressable } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Image, ScrollView, Button } from 'react-native'
+import React, { useEffect } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { joinEvent } from '../redux/EventSlice';
-import FullEventCard from './FullEventCard'
 
 
-export default function EventCard({ item }) {
+export default function FullEventCard({ item }) {
     // user id
     const dispatch = useDispatch()
     const userId = '23'
@@ -17,11 +16,9 @@ export default function EventCard({ item }) {
     const handleCancel = () => {
         console.warn('cancelled')
     }
-    const [modalVisible, setModalVisible] = useState(false);
-
 
     return (
-        <View className='bg-white p-3 shadow mb-3 rounded-lg'>
+        <View className='bg-slate-50 p-3 shadow mb-3 rounded-lg'>
             <View className='flex-row items-center'>
                 <Image
                     source={require('../assets/profilepic.jpg')}
@@ -31,40 +28,9 @@ export default function EventCard({ item }) {
                     <Text className='text-black text-lg font-bold'>{item.eventName}</Text>
                     <Text>Organized by {item.organizerName}</Text>
                 </View>
-                <View className='flex-row '>
-
-                    <Button title='View'
-                        onPress={() => setModalVisible(true)}
-                    />
-                    {console.warn(item.eventId, item.volunteerId?.includes(userId))}
-
-                    {item.volunteerId?.includes(userId) ?
-                        <Button title="Cancel" color="red" onPress={handleCancel} /> :
-                        <Button title="Join" color="green" onPress={handleJoin} />
-                    }
-                </View>
 
             </View>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View className='justify-center items-center mt-7 h-96'>
-                    <FullEventCard  item={item}/>
-                    <Pressable
-                        onPress={() => setModalVisible(!modalVisible)}
-                        className='bg-red-600 p-2'
-                    >
-                        <Text className='text-white text-base text-center'>Hide </Text>
-                    </Pressable>
-                </View>
-            </Modal>
-            <View className='flex-row items-center justify-between pt-3'>
+            <View className=' -center justify-between pt-3'>
                 <View className='flex-row items-center'>
                     <Ionicons name="location" color="green" />
                     <Text className='text-green-800 pl-1'>{item.location}</Text>
@@ -78,9 +44,17 @@ export default function EventCard({ item }) {
                     <Text className='text-green-800 pl-1'>{item.time}</Text>
                 </View>
             </View>
+            <View>
+                <Text className='font-bold '>Category: </Text>
+                <Text className='font-bold '>Maximum number of volunteer: </Text>
+                <Text className='font-bold '>Points: </Text>
+                <Text className='font-bold '>Sponser: </Text>
+
+            </View>
             <ScrollView className='h-14 mt-3'>
                 <Text>{item.description}</Text>
             </ScrollView>
+            <Button title='Join ' color='green'/>
         </View>
 
     )

@@ -11,8 +11,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //import { createDrawerNavigator } from '@react-navigation/drawer';
 //import { TailwindProvider } from 'tailwindcss-react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import {addEvent} from './screens/HomeScreen'
+import { addEvent } from './screens/HomeScreen'
 import Form from './screens/Form';
+import { Provider } from 'react-redux'
+import store from './redux/store'
+import Leaderboard from './screens/Leaderboard';
+import Map from './components/Map';
 
 
 const Tab = createBottomTabNavigator();
@@ -64,10 +68,8 @@ export function BottomTab() {
     })}>
 
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="LeaderBoard" component={Form} />
-      <Tab.Screen name="Create"
-       children={()=><CreateEvent addEvent={addEvent} /> }
-       />
+      <Tab.Screen name="LeaderBoard" component={Leaderboard} />
+      <Tab.Screen name="Create" component={CreateEvent} />
       <Tab.Screen name="My Events" component={MyEvents} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
@@ -81,13 +83,17 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
 
-      <Stack.Navigator>
-        <Stack.Screen name="BottomTab" component={BottomTab} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      </Stack.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="BottomTab" component={BottomTab} options={{ headerShown: false }} />
+          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Map" component={Map} options={{ headerShown: false }} />
 
-    </NavigationContainer>
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    </Provider>
   )
 }

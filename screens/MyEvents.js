@@ -1,16 +1,27 @@
-import { View, Text, Dimensions } from 'react-native'
+import { View, Text, Dimensions, FlatList, SafeAreaView } from 'react-native'
 import React from 'react'
 import SearchFilterModal from '../components/SearchFilterModal'
 import MapView from 'react-native-maps';
+import EventCard from '../components/EventCard';
+import { useSelector } from 'react-redux';
+import MyEventsCard from '../components/MyEventsCard';
 
 const MyEvents = () => {
+    const data = useSelector((state) => state.event)
     return (
-        <View>
-            <Text className='text-xl font-bold'> You haven't created any Events</Text>
-            <Text>You can create Events here....</Text>
-            {/* <SearchFilterModal /> */}
-            <MapView style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height, }} />
-        </View>
+        <SafeAreaView className='p-2'>
+            {/* <Text className='text-xl font-bold'> You haven't created any Events</Text> */}
+            <Text className='font-extrabold mt-10 text-center text-xl'>Your Events</Text>
+            <FlatList
+                data={data}
+                renderItem={({ item }) => (
+                    <MyEventsCard
+                        item={item}
+                    />
+                )
+                }
+            />
+        </SafeAreaView>
     )
 }
 
